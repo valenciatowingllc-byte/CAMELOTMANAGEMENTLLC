@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Premier - Property & Real Estate Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfeff',
+                            100: '#cffafe',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            900: '#164e63',
+                        },
+                        darkbg: '#0f172a',
+                        darkcard: '#1e293b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-panel-hover:hover {
+            background: rgba(30, 41, 59, 0.85);
+            border-color: rgba(34, 211, 238, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.2);
+        }
+        .glow-accent {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.4);
+        }
+        .glow-text {
+            text-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+        }
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: #334155;
+            border-radius: 9999px;
+            height: 8px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #22d3ee;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+            transition: transform 0.1s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 antialiased selection:bg-brand-500 selection:text-white">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-800 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center text-slate-900 font-extrabold text-xl shadow-lg glow-accent">
+                        <i class="fa-solid font-bold text-white fa-building"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold tracking-tight text-white">APEX<span class="text-brand-400">PREMIER</span></span>
+                        <span class="block text-[10px] font-semibold uppercase tracking-widest text-slate-400">Property Management</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Items -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-slate-300 hover:text-brand-400 text-sm font-medium transition-colors">Services</a>
+                    <a href="#calculator" class="text-slate-300 hover:text-brand-400 text-sm font-medium transition-colors">Yield Calculator</a>
+                    <a href="#about" class="text-slate-300 hover:text-brand-400 text-sm font-medium transition-colors">Why Apex</a>
+                    <a href="#testimonials" class="text-slate-300 hover:text-brand-400 text-sm font-medium transition-colors">Reviews</a>
+                    <a href="#proposal" class="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-slate-950 font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5 text-sm glow-accent">
+                        Request Proposal
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-400">Services</a>
+            <a href="#calculator" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-400">Yield Calculator</a>
+            <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-400">Why Apex</a>
+            <a href="#testimonials" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-brand-400">Reviews</a>
+            <a href="#proposal" class="block w-full text-center bg-brand-500 text-slate-950 font-bold px-4 py-3 rounded-xl mt-4">Request Proposal</a>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+        <!-- Background Gradient Glows -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto space-y-6">
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-panel border-brand-500/30 text-brand-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+                    <span>Next-Gen Asset & Real Estate Management</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    Elevating Property Value, <br>
+                    <span class="bg-gradient-to-r from-brand-400 via-teal-300 to-cyan-200 bg-clip-text text-transparent glow-text">Simplifying Management.</span>
+                </h1>
+
+                <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                    Full-service real estate management tailored for high-yield portfolio optimization, guaranteed tenant retention, and 24/7 transparent operational control.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <a href="#services" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-base transition-all transform hover:-translate-y-0.5 shadow-lg glow-accent text-center">
+                        Explore Our Services <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                    <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel hover:bg-slate-800/80 text-slate-200 font-semibold text-base border border-slate-700 hover:border-brand-500/50 transition-all text-center">
+                        Calculate Portfolio Yield
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats Bar Banner -->
+            <div class="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <div class="glass-panel p-6 rounded-2xl text-center border-slate-800/80">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brand-400 mb-1" id="stat-1">1,250+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 font-medium uppercase tracking-wider">Properties Managed</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl text-center border-slate-800/80">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brand-400 mb-1" id="stat-2">99.2%</div>
+                    <div class="text-xs sm:text-sm text-slate-400 font-medium uppercase tracking-wider">Occupancy Rate</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl text-center border-slate-800/80">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brand-400 mb-1" id="stat-3">&lt; 18h</div>
+                    <div class="text-xs sm:text-sm text-slate-400 font-medium uppercase tracking-wider">Average Maintenance Response</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl text-center border-slate-800/80">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brand-400 mb-1" id="stat-4">$420M+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 font-medium uppercase tracking-wider">Assets Under Management</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 relative border-t border-slate-800/60 bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-2">Our Management Expertise</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Comprehensive Services Tailored to Assets</p>
+                <p class="text-slate-400 mt-3 text-base">From single-family homes to large commercial portfolios, we deliver precision management at every step.</p>
+            </div>
+
+            <!-- Service Filter Tabs -->
+            <div class="flex justify-center flex-wrap gap-2 mb-12" id="service-tabs">
+                <button onclick="filterServices('all')" class="service-tab-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition-all glass-panel border-brand-400 text-brand-400">All Services</button>
+                <button onclick="filterServices('residential')" class="service-tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all glass-panel border-transparent text-slate-400 hover:text-white">Residential</button>
+                <button onclick="filterServices('commercial')" class="service-tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all glass-panel border-transparent text-slate-400 hover:text-white">Commercial</button>
+                <button onclick="filterServices('financial')" class="service-tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all glass-panel border-transparent text-slate-400 hover:text-white">Financial & Legal</button>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card glass-panel glass-panel-hover p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between" data-category="residential">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-2xl mb-6">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Tenant Screening & Placement</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Complete background checks, credit audits, employment verification, and criminal history screening to secure reliable long-term tenants.</p>
+                        <ul class="space-y-2 mb-8 text-xs text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> 99.8% Tenant Placement Accuracy</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Thorough Nationwide Background Audits</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Automated Lease Execution</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('modal-tenant')" class="w-full py-3 rounded-xl glass-panel text-brand-400 font-semibold text-sm hover:bg-brand-500 hover:text-slate-950 transition-all flex items-center justify-center gap-2">
+                        Learn Detailed Process <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card glass-panel glass-panel-hover p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between" data-category="financial">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-2xl mb-6">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Rent Collection & Accounting</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Automated tenant online portals with direct bank payouts for owners. Full real-time financial reporting and tax documentation.</p>
+                        <ul class="space-y-2 mb-8 text-xs text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Direct Deposit Payouts by the 5th</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> 24/7 Owner Portal & Ledger Access</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> End-of-Year 1099 Tax Preparation</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('modal-rent')" class="w-full py-3 rounded-xl glass-panel text-brand-400 font-semibold text-sm hover:bg-brand-500 hover:text-slate-950 transition-all flex items-center justify-center gap-2">
+                        Learn Detailed Process <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card glass-panel glass-panel-hover p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between" data-category="residential commercial">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-2xl mb-6">
+                            <i class="fa-solid fa-wrench"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">24/7 Repairs & Maintenance</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Round-the-clock emergency dispatch with preferred vendor pricing. We protect your asset's structural health without overcharging.</p>
+                        <ul class="space-y-2 mb-8 text-xs text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Pre-Vetted In-House Repair Technicians</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> No Maintenance Markup Fees</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Rapid Emergency Response Hotline</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('modal-maintenance')" class="w-full py-3 rounded-xl glass-panel text-brand-400 font-semibold text-sm hover:bg-brand-500 hover:text-slate-950 transition-all flex items-center justify-center gap-2">
+                        Learn Detailed Process <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="service-card glass-panel glass-panel-hover p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between" data-category="residential commercial">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-2xl mb-6">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Inspection & Legal Compliance</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Routine property inspections with digital photo reports, lease agreement compliance, and local municipal regulations adherence.</p>
+                        <ul class="space-y-2 mb-8 text-xs text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Move-in / Move-out HD Photo Audits</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Annual Preventive Maintenance Checks</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Local Housing Code Compliance</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('modal-inspection')" class="w-full py-3 rounded-xl glass-panel text-brand-400 font-semibold text-sm hover:bg-brand-500 hover:text-slate-950 transition-all flex items-center justify-center gap-2">
+                        Learn Detailed Process <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="service-card glass-panel glass-panel-hover p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between" data-category="commercial">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-2xl mb-6">
+                            <i class="fa-solid fa-building-circle-arrow-right"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Full-Service Asset Optimization</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Strategic advice to maximize NOI (Net Operating Income), value-add capital renovations, and long-term real estate asset appreciation.</p>
+                        <ul class="space-y-2 mb-8 text-xs text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Comparative Market Analysis (CMA)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Capital Improvement ROI Projections</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Commercial Lease Restructuring</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('modal-asset')" class="w-full py-3 rounded-xl glass-panel text-brand-400 font-semibold text-sm hover:bg-brand-500 hover:text-slate-950 transition-all flex items-center justify-center gap-2">
+                        Learn Detailed Process <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="service-card glass-panel glass-panel-hover p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between" data-category="financial">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-2xl mb-6">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Eviction Protection & Legal Services</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Complete legal representation and process management for difficult tenancy resolutions with guaranteed eviction coverage plans.</p>
+                        <ul class="space-y-2 mb-8 text-xs text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Zero-Cost Legal Coverage Plan</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Attorney-Handled Notices & Filings</li>
+                            <li class="flex items-center"><i class="fa-solid fa-circle-check text-brand-400 mr-2"></i> Rapid Property Re-leasing Guarantee</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('modal-legal')" class="w-full py-3 rounded-xl glass-panel text-brand-400 font-semibold text-sm hover:bg-brand-500 hover:text-slate-950 transition-all flex items-center justify-center gap-2">
+                        Learn Detailed Process <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-3xl p-8 md:p-12 border-slate-700/80 relative overflow-hidden">
+                <!-- Background Accent Blur -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Left Column: Controls -->
+                    <div class="lg:col-span-7 space-y-8">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-brand-400">Interactive Estimator</span>
+                            <h2 class="text-3xl font-bold text-white mt-1">Calculate Your Portfolio Yield & Fees</h2>
+                            <p class="text-slate-400 text-sm mt-2">Adjust the sliders below to see estimated annual revenue, management fee structure, and efficiency gains with Apex Premier.</p>
+                        </div>
+
+                        <!-- Slider 1: Number of Units -->
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-sm">
+                                <label class="font-medium text-slate-200">Number of Property Units</label>
+                                <span class="font-bold text-brand-400 text-lg" id="units-val">5 Units</span>
+                            </div>
+                            <input type="range" id="units-slider" min="1" max="50" value="5" class="w-full">
+                            <div class="flex justify-between text-xs text-slate-500">
+                                <span>1 Unit</span>
+                                <span>25 Units</span>
+                                <span>50+ Units</span>
+                            </div>
+                        </div>
+
+                        <!-- Slider 2: Average Monthly Rent -->
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-sm">
+                                <label class="font-medium text-slate-200">Average Monthly Rent per Unit</label>
+                                <span class="font-bold text-brand-400 text-lg" id="rent-val">$2,400</span>
+                            </div>
+                            <input type="range" id="rent-slider" min="800" max="10000" step="100" value="2400" class="w-full">
+                            <div class="flex justify-between text-xs text-slate-500">
+                                <span>$800</span>
+                                <span>$5,000</span>
+                                <span>$10,000+</span>
+                            </div>
+                        </div>
+
+                        <!-- Management Fee Rate Tier Indicators -->
+                        <div class="grid grid-cols-3 gap-3 text-center pt-2">
+                            <div class="p-3 rounded-xl glass-panel border-slate-800" id="tier-1">
+                                <div class="text-xs text-slate-400">1-4 Units</div>
+                                <div class="text-sm font-bold text-slate-200">8% Fee</div>
+                            </div>
+                            <div class="p-3 rounded-xl glass-panel border-slate-800" id="tier-2">
+                                <div class="text-xs text-slate-400">5-15 Units</div>
+                                <div class="text-sm font-bold text-slate-200">6.5% Fee</div>
+                            </div>
+                            <div class="p-3 rounded-xl glass-panel border-slate-800" id="tier-3">
+                                <div class="text-xs text-slate-400">16+ Units</div>
+                                <div class="text-sm font-bold text-slate-200">5% Custom Fee</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Results Card -->
+                    <div class="lg:col-span-5">
+                        <div class="glass-panel p-8 rounded-2xl border-brand-500/30 bg-slate-900/80 space-y-6">
+                            <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-4">Estimated Annual Breakdown</h3>
+
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-slate-400">Gross Annual Rental Income</span>
+                                    <span class="text-base font-semibold text-slate-100" id="calc-gross">$144,000</span>
+                                </div>
+
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-slate-400">Apex Management Fee (<span id="calc-fee-percent">6.5%</span>)</span>
+                                    <span class="text-base font-semibold text-rose-400" id="calc-fee">-$9,360</span>
+                                </div>
+
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-slate-400">Estimated Vacancy Loss Protection</span>
+                                    <span class="text-base font-semibold text-emerald-400" id="calc-savings">+$4,320 saved</span>
+                                </div>
+
+                                <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                                    <div>
+                                        <div class="text-xs text-slate-400 uppercase font-bold tracking-wider">Estimated Net Income</div>
+                                        <div class="text-2xl font-extrabold text-brand-400" id="calc-net">$138,960</div>
+                                    </div>
+                                    <i class="fa-solid fa-piggy-bank text-3xl text-brand-400/50"></i>
+                                </div>
+                            </div>
+
+                            <a href="#proposal" class="block w-full text-center py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold transition-all shadow-md">
+                                Lock In This Rate
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-slate-900/30 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left Details -->
+                <div class="space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-400">The Apex Difference</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Built for Discerning Property Owners & Investors</h2>
+                    <p class="text-slate-300 leading-relaxed text-base">
+                        Traditional property management companies rely on outdated spreadsheets, slow communication, and hidden markups. At Apex Premier, we combine tech-driven efficiency with personalized concierge service.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-2.5 rounded-xl bg-brand-500/10 text-brand-400 mt-1">
+                                <i class="fa-solid fa-bolt text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-base">Instant Owner Portal Access</h4>
+                                <p class="text-slate-400 text-sm">Monitor rent disbursements, maintenance updates, and leases live from any device.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="p-2.5 rounded-xl bg-brand-500/10 text-brand-400 mt-1">
+                                <i class="fa-solid fa-hand-holding-dollar text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-base">Zero Hidden Maintenance Fees</h4>
+                                <p class="text-slate-400 text-sm">We pass along our direct contractor wholesale pricing without adding extra surcharges.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="p-2.5 rounded-xl bg-brand-500/10 text-brand-400 mt-1">
+                                <i class="fa-solid fa-shield-halved text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-base">Guaranteed Tenant Performance</h4>
+                                <p class="text-slate-400 text-sm">If a tenant we place defaults in the first 12 months, we re-lease your property for free.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Element / Testimonial Box -->
+                <div id="testimonials" class="space-y-6">
+                    <div class="glass-panel p-8 rounded-2xl border-slate-700/80 relative">
+                        <i class="fa-solid fa-quote-right text-5xl text-brand-500/10 absolute top-6 right-6"></i>
+                        <div class="flex items-center space-x-1 text-amber-400 mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-200 text-lg italic mb-6">
+                            "Apex Premier transformed my 12-unit residential portfolio. Vacancy dropped from 12% to literally 0%, and rent yields increased by 18% in the first year alone!"
+                        </p>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center font-bold text-brand-400 text-xl">
+                                ED
+                            </div>
+                            <div>
+                                <h5 class="text-white font-bold text-sm">Marcus Vance</h5>
+                                <p class="text-xs text-slate-400">Multi-Family Investor (14 Units)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-8 rounded-2xl border-slate-700/80 relative">
+                        <i class="fa-solid fa-quote-right text-5xl text-brand-500/10 absolute top-6 right-6"></i>
+                        <div class="flex items-center space-x-1 text-amber-400 mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-200 text-lg italic mb-6">
+                            "The owner portal gives me absolute clarity. I get my rental payouts direct-deposited early every month like clockwork."
+                        </p>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center font-bold text-brand-400 text-xl">
+                                SL
+                            </div>
+                            <div>
+                                <h5 class="text-white font-bold text-sm">Sarah Lin</h5>
+                                <p class="text-xs text-slate-400">Commercial Property Owner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proposal" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel p-8 md:p-12 rounded-3xl border-slate-700 relative overflow-hidden shadow-2xl">
+                <!-- Glowing accent sphere -->
+                <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-400">Customized Analysis</span>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Request a Management Proposal</h2>
+                    <p class="text-slate-400 text-sm mt-2">Get a complimentary rental income analysis and custom management quote for your properties within 24 hours.</p>
+                </div>
+
+                <!-- Interactive Form -->
+                <form id="proposal-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Full Name *</label>
+                            <input type="text" required placeholder="John Doe" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Email Address *</label>
+                            <input type="email" required placeholder="john@example.com" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-all text-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Phone Number *</label>
+                            <input type="tel" required placeholder="(555) 000-0000" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Property Type</label>
+                            <select class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-all text-sm">
+                                <option value="single">Single-Family Home</option>
+                                <option value="multi">Multi-Family / Apartment</option>
+                                <option value="commercial">Commercial / Retail</option>
+                                <option value="portfolio">Mixed Portfolio</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Property Address or City</label>
+                            <input type="text" placeholder="City or Full Address" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Number of Units</label>
+                            <input type="number" min="1" placeholder="e.g. 4" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-all text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Additional Notes / Current Challenges</label>
+                        <textarea rows="4" placeholder="Tell us about your portfolio goals or questions..." class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-all text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-slate-950 font-bold text-base transition-all transform hover:-translate-y-0.5 shadow-xl glow-accent">
+                        Submit Proposal Request
+                    </button>
+                </form>
+
+                <!-- Confirmation Message Box (Hidden by default) -->
+                <div id="form-success" class="hidden p-8 text-center space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-brand-500/20 text-brand-400 mx-auto flex items-center justify-center text-3xl">
+                        <i class="fa-solid fa-check-double"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">Proposal Request Received!</h3>
+                    <p class="text-slate-300 text-sm max-w-md mx-auto">Thank you for contacting Apex Premier. Senior management will review your portfolio details and email a comprehensive proposal within 24 hours.</p>
+                    <button onclick="resetForm()" class="px-6 py-2.5 rounded-xl glass-panel text-brand-400 text-sm font-semibold hover:bg-slate-800 transition-colors">Submit Another Request</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="glass-panel border-t border-slate-800 pt-16 pb-8 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <!-- Column 1 -->
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-slate-950 font-bold text-lg">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white tracking-tight">APEX<span class="text-brand-400">PREMIER</span></span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Precision real estate management delivering maximized yield, zero hassle, and asset preservation across residential and commercial investments.
+                    </p>
+                </div>
+
+                <!-- Column 2 -->
+                <div>
+                    <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-4">Quick Links</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#services" class="hover:text-brand-400 transition-colors">Management Services</a></li>
+                        <li><a href="#calculator" class="hover:text-brand-400 transition-colors">Yield Calculator</a></li>
+                        <li><a href="#about" class="hover:text-brand-400 transition-colors">Why Apex Premier</a></li>
+                        <li><a href="#testimonials" class="hover:text-brand-400 transition-colors">Owner Reviews</a></li>
+                        <li><a href="#proposal" class="hover:text-brand-400 transition-colors">Get Proposal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div>
+                    <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-4">Services</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#services" class="hover:text-brand-400 transition-colors">Tenant Placement</a></li>
+                        <li><a href="#services" class="hover:text-brand-400 transition-colors">Rent Accounting</a></li>
+                        <li><a href="#services" class="hover:text-brand-400 transition-colors">24/7 Maintenance</a></li>
+                        <li><a href="#services" class="hover:text-brand-400 transition-colors">Property Inspections</a></li>
+                        <li><a href="#services" class="hover:text-brand-400 transition-colors">Asset Optimization</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4 -->
+                <div>
+                    <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-4">Contact & Support</h4>
+                    <ul class="space-y-3 text-xs">
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-location-dot text-brand-400"></i>
+                            <span>100 Financial Tower, Suite 1800, NY</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-phone text-brand-400"></i>
+                            <span>+1 (800) 555-APEX</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-envelope text-brand-400"></i>
+                            <span>contact@apexpremierpm.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
+                <p>&copy; 2026 Apex Premier Property Management LLC. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-slate-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-300">Terms of Service</a>
+                    <a href="#" class="hover:text-slate-300">Owner Portal Login</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Container -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <!-- Generic Modal Box -->
+        <div class="glass-panel bg-slate-900/90 rounded-2xl max-w-lg w-full p-8 border-slate-700 relative text-left shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Service Tab Filtering
+        function filterServices(category) {
+            const buttons = document.querySelectorAll('.service-tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'border-brand-400', 'text-brand-400');
+                btn.classList.add('border-transparent', 'text-slate-400');
+            });
+
+            event.target.classList.add('active', 'border-brand-400', 'text-brand-400');
+            event.target.classList.remove('border-transparent', 'text-slate-400');
+
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'all' || cardCat.includes(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Interactive Yield Calculator Logic
+        const unitsSlider = document.getElementById('units-slider');
+        const rentSlider = document.getElementById('rent-slider');
+
+        function updateCalculator() {
+            const units = parseInt(unitsSlider.value);
+            const rent = parseInt(rentSlider.value);
+
+            document.getElementById('units-val').innerText = `${units} ${units === 1 ? 'Unit' : 'Units'}`;
+            document.getElementById('rent-val').innerText = `$${rent.toLocaleString()}`;
+
+            // Determine fee percentage tier
+            let feePercent = 0.08;
+            if (units >= 16) {
+                feePercent = 0.05;
+            } else if (units >= 5) {
+                feePercent = 0.065;
+            }
+
+            const grossAnnual = units * rent * 12;
+            const feeAnnual = grossAnnual * feePercent;
+            const vacancySavings = grossAnnual * 0.03; // Estimated 3% vacancy reduction value
+            const netAnnual = grossAnnual - feeAnnual;
+
+            document.getElementById('calc-fee-percent').innerText = `${(feePercent * 100).toFixed(1)}%`;
+            document.getElementById('calc-gross').innerText = `$${grossAnnual.toLocaleString()}`;
+            document.getElementById('calc-fee').innerText = `-$${Math.round(feeAnnual).toLocaleString()}`;
+            document.getElementById('calc-savings').innerText = `+$${Math.round(vacancySavings).toLocaleString()} saved`;
+            document.getElementById('calc-net').innerText = `$${Math.round(netAnnual).toLocaleString()}`;
+        }
+
+        unitsSlider.addEventListener('input', updateCalculator);
+        rentSlider.addEventListener('input', updateCalculator);
+        updateCalculator(); // Initial calculation run
+
+        // Modal Content Data
+        const modalData = {
+            'modal-tenant': {
+                title: "Tenant Screening & Placement Protocol",
+                icon: "fa-user-shield",
+                body: "Our multi-stage tenant placement process ensures minimum turnover and zero risk. We perform 50-state criminal background checks, full credit bureau reporting, previous landlord verification, and income verification (minimum 3x rent ratio)."
+            },
+            'modal-rent': {
+                title: "Rent Collection & Financial Reporting",
+                icon: "fa-chart-line",
+                body: "Tenants receive automatic SMS/email payment reminders and pay online via credit, debit, or ACH. Rental funds are automatically disbursed into your bank account by the 5th of every month alongside a transparent monthly ledger."
+            },
+            'modal-maintenance': {
+                title: "24/7 Repairs & Maintenance Dispatch",
+                icon: "fa-wrench",
+                body: "We partner with licensed, insured contractors who offer exclusive wholesale pricing. Tenants can submit maintenance requests and photo proof through their mobile app 24/7/365."
+            },
+            'modal-inspection': {
+                title: "Property Inspections & Compliance",
+                icon: "fa-clipboard-check",
+                body: "Detailed move-in and move-out inspections include high-definition photographic documentation. Routine annual interior/exterior health checks prevent deferred maintenance issues."
+            },
+            'modal-asset': {
+                title: "Full-Service Asset Optimization",
+                icon: "fa-building-circle-arrow-right",
+                body: "We constantly track localized rental rate trends to recommend opportunistic rent increases during lease renewals and suggest capital renovation projects with the highest ROI."
+            },
+            'modal-legal': {
+                title: "Eviction Protection & Legal Management",
+                icon: "fa-scale-balanced",
+                body: "In the rare event of tenant default, our optional eviction protection plan covers all attorney fees, court filing costs, and legal notice service to expedite re-leasing."
+            }
+        };
+
+        function openModal(modalKey) {
+            const data = modalData[modalKey];
+            if (!data) return;
+
+            const contentHtml = `
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-4">
+                    <i class="fa-solid ${data.icon}"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">${data.title}</h3>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">${data.body}</p>
+                <a href="#proposal" onclick="closeModal()" class="block w-full text-center py-3 rounded-xl bg-brand-500 text-slate-950 font-bold text-sm">Request Proposal for This Service</a>
+            `;
+
+            document.getElementById('modal-content').innerHTML = contentHtml;
+            document.getElementById('modal-backdrop').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-backdrop').classList.add('hidden');
+        }
+
+        // Close modal when clicking outside box
+        document.getElementById('modal-backdrop').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-backdrop') closeModal();
+        });
+
+        // Form Submit Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            document.getElementById('proposal-form').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('proposal-form').reset();
+            document.getElementById('proposal-form').classList.remove('hidden');
+            document.getElementById('form-success').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
